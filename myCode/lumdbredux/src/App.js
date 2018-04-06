@@ -11,10 +11,15 @@ import "./App.css";
 
 import MoviesList from "./MoviesList";
 import MovieDetail from "./MovieDetail";
+//import root reducers
+import {composeWithDevTools} from 'redux-devtools-extension';
+import rootReducer from "./reducers/root_reducers";
 //Create store
-const hello = () => "hello james";
-const store = createStore(hello);
-
+const store = createStore(rootReducer, 
+{},
+composeWithDevTools()
+);
+console.log("State",store.getState);
 //APP COMPONENT
 const App = () => (
   <Provider store={store}>
