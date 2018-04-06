@@ -11,6 +11,7 @@ import "./App.css";
 
 import MoviesList from "./MoviesList";
 import MovieDetail from "./MovieDetail";
+import Toggle from "./components/Toggle";
 //import root reducers
 import {composeWithDevTools} from 'redux-devtools-extension';
 import rootReducer from "./reducers/root_reducers";
@@ -30,6 +31,7 @@ const App = () => (
             <img src={logo} className="App-logo" alt="logo" />
           </Link>
         </header>
+        <Toggle/>
         <Switch>
           <Route exact path="/" component={MoviesList} />
           <Route path="/:id" component={MovieDetail} />
