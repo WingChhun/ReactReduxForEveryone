@@ -21,8 +21,27 @@ class App extends Component {
 
 export default App;
 
-const hello = () =>({welcome:'hello'});
-const store = createStore(hello);
+const defaultState = {
+  welcome: "Hi",
+  otherState: "some stuff"
+};
 
-console.log(store);
-console.log("State from store",store.getState());
+const greeting = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GREET_ME":
+      return { ...state, welcome: "Hello James" };
+    case "GREET_WORLD":
+      return { ...state, welcome: "hello World" };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(greeting);
+console.log("Before",store.getState());
+store.dispatch({
+  type: "GREET_ME"
+});
+//DEBUG
+//console.log(store);
+console.log("After",store.getState());
