@@ -1,32 +1,31 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
+//mimport action creator
 import { toggleMessage } from "./actions";
-import { getMovies } from "../Movies/actions";
+
 //Connect store to Toggle
-const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => {
+const Toggle = ({ messageVisibility, toggleMessage }) => {
   return (
     <div>
       {messageVisibility && (
         <p>You will be seeing this if Redux actino is toggled!</p>
       )}
       <button onClick={toggleMessage}>Toggle Me!</button>
-      <button onClick={getMovies}>Get Movies</button>
     </div>
   );
 };
 
 //Pluck what we want from our state
 const mapStateToProps = state => ({
-  messageVisibility: state.messageVisibility,
-  movies: state.movies
+  messageVisibility: state.messageVisibility
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toggleMessage,
-      getMovies
+      toggleMessage
     },
     dispatch
   );
