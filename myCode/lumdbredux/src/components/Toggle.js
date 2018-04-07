@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { toggleMessage } from "../actions/actions";
 //Connect store to Toggle
 const Toggle = ({ messageVisibility, dispatch }) => {
   return (
@@ -8,15 +8,7 @@ const Toggle = ({ messageVisibility, dispatch }) => {
       {messageVisibility && (
         <p>You will be seeing this if Redux actino is toggled!</p>
       )}
-      <button
-        onClick={() =>
-          dispatch({
-            type: "TOGGLE_MESSAGE"
-          })
-        }
-      >
-        Toggle Me!
-      </button>
+      <button onClick={() => dispatch(toggleMessage())}>Toggle Me!</button>
     </div>
   );
 };
