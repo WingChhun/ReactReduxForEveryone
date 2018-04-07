@@ -11,7 +11,8 @@ import thunk from "redux-thunk";
 //Extra styking
 import logo from "../logo.svg";
 import "./App.css";
-
+//localstorage
+import { save, load } from "redux-localstorage-simple";
 //Import components for movies
 
 import MoviesList from "../components/Movies/MoviesList";
@@ -26,10 +27,11 @@ import rootReducer from "../reducers/root_reducers";
 //MIDDLEWARE
 const MIDDLEWARE = [logger, thunk];
 //Create store
+//add save and load from redux-localstorage-simple
 const store = createStore(
   rootReducer,
-  {},
-  composeWithDevTools(applyMiddleware(...MIDDLEWARE))
+  load(),
+  composeWithDevTools(applyMiddleware(...MIDDLEWARE, save()))
 );
 console.log("State", store.getState);
 //APP COMPONENT
