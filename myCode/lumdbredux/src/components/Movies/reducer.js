@@ -5,6 +5,7 @@ import { RESET_MOVIE, GET_MOVIES, GET_MOVIE } from "../Movies/actions";
 const initialState = {
   movies: [],
   movie: {},
+  moviesLoadedAt: null,
   moviesLoaded: false,
   movieLoaded: false
 };
@@ -17,7 +18,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         movies: data,
-        moviesLoaded: true
+        moviesLoaded: true,
+        moviesLoadedAt: new Date()
       };
 
     case GET_MOVIE:

@@ -12,9 +12,12 @@ import { getMovies } from "./actions";
 class MoviesList extends PureComponent {
   componentDidMount() {
     //GetMovies, this is equivalent to this.props.dispatch.getMovies();
-    const { getMovies, isLoaded } = this.props;
-   
-  if(!isLoaded) {getMovies();}
+    const { getMovies, isLoaded, moviesLoadedAt } = this.props;
+    const oneHour = 60 * 60 * 1000; //get Hour in milliseconds
+    if (!isLoaded || new Date() - moviesLoadedAt > oneHour) {
+      getMovies();
+    }
+
     //getMovies(); //this.props.getMovies after mapping Dispatch
   }
 
@@ -33,7 +36,8 @@ class MoviesList extends PureComponent {
 //set props.movies to state.movies.movies
 const mapStateToProps = state => ({
   movies: state.movies.movies,
-  isLoaded: state.movies.moviesLoaded
+  isLoaded: state.movies.moviesLoaded,
+  moviesLoadedAt: state.movies.moviesLoadedAt
 });
 //mapDispatch To props, removes the hassle of "this.props.dispatch", instead we can have this.props.<whatever></whatever>
 const mapDispatchToProps = dispatch =>
