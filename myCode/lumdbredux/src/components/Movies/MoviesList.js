@@ -1,35 +1,49 @@
 /* eslint react/no-did-mount-set-state: 0 */
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-import Movie from './Movie';
+import React, { PureComponent } from "react";
+import styled from "styled-components";
+import Movie from "./Movie";
+//Redux config here
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+//extra
+import { getMovies } from "./actions";
 
+//Component
 class MoviesList extends PureComponent {
-  state = {
-    movies: [],
-  }
-
-  async componentDidMount() {
-    try {
-      const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=65e043c24785898be00b4abc12fcdaae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
-      const movies = await res.json();
-      this.setState({
-        movies: movies.results,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+  componentDidMount() {
+    //GetMovies, this is equivalent to this.props.dispatch.getMovies();
+    const { getMovies, isLoaded } = this.props;
+   
+  if(!isLoaded) {getMovies();}
+    //getMovies(); //this.props.getMovies after mapping Dispatch
   }
 
   render() {
+    //Pull out movies from this.props, or this.props.movies
+    const { movies, isLoaded } = this.props;
+    if (!isLoaded) return <h1>Loading...</h1>;
     return (
       <MovieGrid>
-        {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+        {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
       </MovieGrid>
     );
   }
 }
 
-export default MoviesList;
+//set props.movies to state.movies.movies
+const mapStateToProps = state => ({
+  movies: state.movies.movies,
+  isLoaded: state.movies.moviesLoaded
+});
+//mapDispatch To props, removes the hassle of "this.props.dispatch", instead we can have this.props.<whatever></whatever>
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getMovies
+    },
+    dispatch
+  );
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
 
 const MovieGrid = styled.div`
   display: grid;
