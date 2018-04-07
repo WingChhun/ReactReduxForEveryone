@@ -1,14 +1,11 @@
-import {combineReducers} from 'redux';
-import message from "./reducer";
+import { combineReducers } from "redux";
+import toggle from "../components/Toggle/reducer";
+import movies from "../components/Movies/reducer";
 
-//import reducers to this file and combine them all into one to export to main App component
+//import reducers to this file and combine them all into one to export to main App component    m
 const rootReducer = combineReducers({
-message,
-
+  toggle,
+  movies
 });
 
-
 export default rootReducer;
-
-
-
