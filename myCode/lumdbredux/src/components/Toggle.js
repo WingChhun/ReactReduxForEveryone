@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { toggleMessage } from "../actions/actions";
+import { toggleMessage, getMovies } from "../actions/actions";
 
 //Connect store to Toggle
-const Toggle = ({ messageVisibility, toggleMessage }) => {
+const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => {
   return (
     <div>
       {messageVisibility && (
         <p>You will be seeing this if Redux actino is toggled!</p>
       )}
       <button onClick={toggleMessage}>Toggle Me!</button>
+      <button onClick={getMovies}>Get Movies</button>
     </div>
   );
 };
@@ -19,10 +20,12 @@ const Toggle = ({ messageVisibility, toggleMessage }) => {
 const mapStateToProps = state => ({
   messageVisibility: state.message.messageVisibility
 });
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toggleMessage
+      toggleMessage,
+      getMovies
     },
     dispatch
   );
